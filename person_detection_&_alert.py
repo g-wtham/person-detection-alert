@@ -11,7 +11,10 @@ import time
 import threading
 import smtplib
 from email.mime.text import MIMEText
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 model = YOLO("./data/yolo11n.pt")
 cap = cv2.VideoCapture("./data/test.mp4")
@@ -19,7 +22,7 @@ cap = cv2.VideoCapture("./data/test.mp4")
 engine = pyttsx3.init() # TTS only need to be initialized once so it's outside the speak() function
 
 username = "curiousgowtham@gmail.com"
-password = "#"
+password = os.getenv("GMAIL_PASSWORD")
 
 def send_email(username, password, subject="[ALERT] Person is Detected", text="A person is detected and an alert has been sent.", to_email=None):
     if to_email is None:
